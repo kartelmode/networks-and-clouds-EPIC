@@ -1,0 +1,24 @@
+services:
+  mailer-service:
+    image: mailer-service
+    build:
+      context: mailer_service
+      dockerfile: ./mailer_service/Dockerfile
+    ports: 
+      - "587:587"
+    networks:
+      - nginx-mailer-network
+
+  nginx-service:
+    image: nginx-service
+    build:
+      context: nginx_service
+      dockerfile: ./nginx_service/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - nginx-mailer-network
+
+networks:
+  nginx-mailer-network: {}
